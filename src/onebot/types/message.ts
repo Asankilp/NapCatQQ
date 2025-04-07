@@ -69,7 +69,8 @@ export enum OB11MessageDataType {
     rps = 'rps',
     miniapp = 'miniapp', // json类
     contact = 'contact',
-    location = 'location'
+    location = 'location',
+    argot = 'argot',
 }
 
 export interface OB11MessagePoke {
@@ -250,6 +251,17 @@ export interface OB11MessageForward {
     };
 }
 
+// 暗语接口定义
+export interface OB11MessageArgot {
+    type: OB11MessageDataType.argot;
+    data: {
+        name: string;
+        segment: OB11MessageData[] | string;
+        command: string | boolean;
+        expired_at: number;
+    };
+}
+
 // 消息数据类型定义
 export type OB11MessageData =
     OB11MessageText |
@@ -257,7 +269,7 @@ export type OB11MessageData =
     OB11MessageAt | OB11MessageReply |
     OB11MessageImage | OB11MessageRecord | OB11MessageFile | OB11MessageVideo |
     OB11MessageNode | OB11MessageIdMusic | OB11MessageCustomMusic | OB11MessageJson |
-    OB11MessageDice | OB11MessageRPS | OB11MessageMarkdown | OB11MessageForward | OB11MessageContext | OB11MessagePoke;
+    OB11MessageDice | OB11MessageRPS | OB11MessageMarkdown | OB11MessageForward | OB11MessageContext | OB11MessagePoke | OB11MessageArgot;
 
 // 发送消息接口定义
 export interface OB11PostSendMsg {

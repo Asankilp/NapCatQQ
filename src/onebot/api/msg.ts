@@ -464,7 +464,7 @@ export class OneBotMsgApi {
                     elementId: '',
                     replyElement: {
                         replayMsgSeq: replyMsg.msgSeq, // raw.msgSeq
-                        replayMsgId: replyMsg.msgId,  // raw.msgId
+                        replayMsgId: replyMsg.msgId, // raw.msgId
                         senderUin: replyMsg.senderUin,
                         senderUinStr: replyMsg.senderUin,
                     },
@@ -477,11 +477,11 @@ export class OneBotMsgApi {
             // 从face_config.json中获取表情名称
             const sysFaces = faceConfig.sysface;
             const face: {
-                QSid?: string,
-                QDes?: string,
-                AniStickerId?: string,
-                AniStickerType?: number,
-                AniStickerPackId?: string,
+                QSid?: string;
+                QDes?: string;
+                AniStickerId?: string;
+                AniStickerType?: number;
+                AniStickerPackId?: string;
             } | undefined = sysFaces.find((systemFace) => systemFace.QSid === parsedFaceId.toString());
             if (!face) {
                 this.core.context.logger.logError('不支持的ID', id);
@@ -531,7 +531,7 @@ export class OneBotMsgApi {
                 context,
                 (await this.handleOb11FileLikeMessage(sendMsg, context)).path,
                 sendMsg.data.summary,
-                sendMsg.data.sub_type,
+                sendMsg.data.sub_type
             );
         },
 
@@ -555,9 +555,8 @@ export class OneBotMsgApi {
             return await this.core.apis.FileApi.createValidSendVideoElement(context, path, fileName, thumb);
         },
 
-        [OB11MessageDataType.voice]: async (sendMsg, context) =>
-            this.core.apis.FileApi.createValidSendPttElement(context,
-                (await this.handleOb11FileLikeMessage(sendMsg, context)).path),
+        [OB11MessageDataType.voice]: async (sendMsg, context) => this.core.apis.FileApi.createValidSendPttElement(context,
+            (await this.handleOb11FileLikeMessage(sendMsg, context)).path),
 
         [OB11MessageDataType.json]: async ({ data: { data } }) => ({
             elementType: ElementType.ARK,
@@ -639,7 +638,8 @@ export class OneBotMsgApi {
             }
             let signUrl = this.obContext.configLoader.configData.musicSignUrl;
             if (!signUrl) {
-                signUrl = 'https://ss.xingzhige.com/music_card/card';//感谢思思！已获思思许可 其余地方使用请自行询问
+                signUrl = 'https://ss.xingzhige.com/music_card/card'; //感谢思思！已获思思许可 其余地方使用请自行询问
+
                 //throw Error('音乐消息签名地址未配置');
             }
             try {
@@ -707,7 +707,8 @@ export class OneBotMsgApi {
                 }, context);
             }
             return undefined;
-        }
+        },
+        [OB11MessageDataType.argot]: async () => undefined,
     };
 
     constructor(obContext: NapCatOneBot11Adapter, core: NapCatCore) {
